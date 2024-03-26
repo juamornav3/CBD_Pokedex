@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+#migration files
+migrations/
 
 # C extensions
 *.so
@@ -58,11 +61,6 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-#migration files
-migrations/
 
 # Flask stuff:
 instance/
@@ -162,4 +160,3 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-*.pyc
