@@ -4,20 +4,35 @@ from pokecursor.models import Pokemon
 from django.db import connection
 from pymongo import MongoClient
 
-def list_all_pokemon_with_cursor():
-    start_time = time.time()
+def connect_to_mongo():
     client = MongoClient('localhost', 27017)
     db = client['pokemon_db']
     collection = db['pokecursor_pokemon']
+    return collection
+
+def list_all_pokemon_with_cursor():
+    start_time = time.time()
+    collection = connect_to_mongo()
     cursor = collection.find({})
     time_query = time.time() - start_time
     return cursor, round(time_query, 4)
 
-def paginate_pokemon_with_cursor(page, limit):
+def paginate_pokemon_with_cursor(page, limit = 10):
     start_time = time.time()
-    client = MongoClient('localhost', 27017)
-    db = client['pokemon_db']
-    collection = db['pokecursor_pokemon']
+    collection = connect_to_mongo()
     cursor = collection.find({}).skip((page - 1) * limit).limit(limit)
     time_query = time.time() - start_time
     return cursor, round(time_query, 4)
+
+def num_pages(limit = 10):
+    collection = connect_to_mongo()
+    num_pokemon = collection.count_documents({})
+    return num_pokemon // limit + 1 if num_pokemon % limit != 0 else num_pokemon // limit
+
+def has_next_page(page, limit=10):
+    collection = connect_to_mongo()
+    num_pokemon = collection.count_documents({})
+    return (page * limit) < num_pokemon
+
+def has_previous_page(page):
+    return page > 1

@@ -49,3 +49,9 @@ def populate_database_n(num_times):
                     pokemon.save()
     num_pokemons = Pokemon.objects.count()
     return num_pokemons
+
+def delete_all_pokemons_db():
+    Pokemon.objects.all().delete()
+    num_pokemons = Pokemon.objects.count()
+    print(num_pokemons)
+    return num_pokemons
