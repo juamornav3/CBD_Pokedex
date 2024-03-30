@@ -1,0 +1,31 @@
+{% extends 'master.html' %}
+
+{% block titulo %} {{titulo}} {% endblock %}
+
+
+
+{% block contenido %} 
+     	<h3>Número de pokémons listados: {{pokemons.count}}</h3>
+        <h3>Tiempo de ejecución de la consulta: {{time_query}} segundos</h3>
+        <h3>Uso de memoria: {{max_memory_usage}} MiB</h3>
+        <ul>
+            {% for pokemon in pokemons %}
+                <li>{{pokemon.id}} - {{pokemon.name}}</li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% if has_previous %}
+                <li>
+                    <a href="/pageAllCursor/?page=1">Primera /</a>
+                    <a href="/pageAllCursor/?page={{page|add:-1}}">/ Anterior</a>
+                </li>
+            {% endif %}
+            {% if has_next %}
+                <li>
+                    <a href="/pageAllCursor/?page={{page|add:1}}">Siguiente /</a>
+                    <a href="/pageAllCursor/?page={{pages}}">/ Última</a>
+                </li>
+            {% endif %}
+        </ul>
+
+{% endblock %}
