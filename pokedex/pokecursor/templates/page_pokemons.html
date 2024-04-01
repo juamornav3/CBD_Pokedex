@@ -5,7 +5,7 @@
 
 
 {% block contenido %} 
-     	<h3>Número de pokémons listados: {{pokemons.count}}</h3>
+     	<h3>Número de páginas listadas: {{pokemons.paginator.num_pages}}</h3>
         <h3>Tiempo de ejecución de la consulta: {{time_query}} segundos</h3>
         <h3>Uso de memoria: {{max_memory_usage}} MiB</h3>
         <ul>
@@ -14,16 +14,16 @@
             {% endfor %}
         </ul>
         <ul>
-            {% if has_previous %}
+            {% if pokemons.has_previous %}
                 <li>
-                    <a href="/pageAllCursor/?page=1">Primera /</a>
-                    <a href="/pageAllCursor/?page={{page|add:-1}}">/ Anterior</a>
+                    <a href="/pageAll/?page=1">Primera /</a>
+                    <a href="/pageAll/?page={{pokemons.previous_page_number}}">/ Anterior</a>
                 </li>
             {% endif %}
-            {% if has_next %}
+            {% if pokemons.has_next %}
                 <li>
-                    <a href="/pageAllCursor/?page={{page|add:1}}">Siguiente /</a>
-                    <a href="/pageAllCursor/?page={{pages}}">/ Última</a>
+                    <a href="/pageAll/?page={{pokemons.next_page_number}}">Siguiente /</a>
+                    <a href="/pageAll/?page={{pokemons.paginator.num_pages}}">/ Última</a>
                 </li>
             {% endif %}
         </ul>
