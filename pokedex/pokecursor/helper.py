@@ -13,3 +13,9 @@ def list_all_pokemon_without_cursor():
     results = list(collection.find({}))
     time_query = time.time() - start_time
     return results, round(time_query, 4)
+
+def get_pokemon_by_name_without_cursor(pokemon_name):
+    start_time = time.time()
+    results = Pokemon.objects.filter(name__icontains=pokemon_name)
+    time_query = time.time() - start_time
+    return results, round(time_query, 4)

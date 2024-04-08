@@ -1,0 +1,26 @@
+{% extends 'master.html' %}
+
+{% block titulo %} {{titulo}} {% endblock %}
+
+
+
+{% block contenido %} 
+        <form id="form" method="post" action=''>{% csrf_token %}
+            <fieldset>
+                <legend>Filtrado pokemon</legend>
+                {{form.as_p}}
+                <BR><BR>
+
+                <input type='submit' value='Buscar'/>
+            </fieldset>
+        </form> 
+     	<h3>Número de pokémons listados {{num_pokemons}}</h3>
+        <h3>Tiempo de ejecución de la consulta: {{time_query}} segundos</h3>
+         <h3>Uso de memoria: {{max_memory_usage}} MiB</h3>
+        <ul>
+            {% for pokemon in pokemons %}
+                <li>{{pokemon.name}}</li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}

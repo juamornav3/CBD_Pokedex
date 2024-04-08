@@ -5,7 +5,7 @@ from pokecursor.populate_db import populate_database , populate_database_n, dele
 from pokecursor.cursor_helper import *
 from pokecursor.helper import *
 from memory_profiler import memory_usage
-from pokecursor.forms import IntegerForm
+from pokecursor.forms import IntegerForm, FilterForm
 from django.core.paginator import Paginator
 
 
@@ -59,6 +59,22 @@ def list_paginated_pokemons_cursor(request):
                                                          'has_previous':has_previous,'has_next':has_next,'pages':pages,
                                                          'STATIC_URL':settings.STATIC_URL})
 
+def filter_pokemons_cursor(request):
+    form = FilterForm()
+    memory_usage_result = memory_usage((list_all_pokemon_with_cursor,))
+    max_memory_usage = max(memory_usage_result)
+    pokemons,time_query = list_all_pokemon_with_cursor()
+    if request.method == 'POST':
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            filter = form.cleaned_data['name_filter']
+            memory_usage_result = memory_usage((get_pokemon_by_name_with_cursor, (filter,)))
+            max_memory_usage = max(memory_usage_result)
+            pokemons, time_query = get_pokemon_by_name_with_cursor(filter)
+    return render(request, 'filter_pokemons_cursor.html', {'titulo':'Filtrado de pokemons con cursores','pokemons':pokemons,
+                                                  'time_query':time_query,'max_memory_usage':max_memory_usage, 'form':form,'STATIC_URL':settings.STATIC_URL})
+    
+
 #OPERATIONS WITHOUT CURSOR
 
 def list_pokemons_without_cursor(request):
@@ -83,4 +99,20 @@ def list_paginated_pokemons_without_cursor(request):
                                                   'time_query':time_query,'current_page':current_page,'pages':pages,
                                                     'max_memory_usage':max_memory_usage,'STATIC_URL':settings.STATIC_URL})
                                         
+def filter_pokemons_without_cusor(request):
+    form = FilterForm()
+    memory_usage_result = memory_usage((list_all_pokemon_without_cursor,))
+    max_memory_usage = max(memory_usage_result)
+    pokemons, time_query= list_all_pokemon_without_cursor()
+    num_pokemons = len(pokemons)
+    if request.method == 'POST':
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            filter = form.cleaned_data['name_filter']
+            memory_usage_result = memory_usage((get_pokemon_by_name_without_cursor, (filter,)))
+            max_memory_usage = max(memory_usage_result)
+            pokemons, time_query = get_pokemon_by_name_without_cursor(filter)
+            num_pokemons = len(pokemons)
 
+    return render(request, 'filter_pokemons.html', {'titulo':'Filtrado de pokemons sin cursores','pokemons':pokemons,
+                                                  'time_query':time_query,'form':form,'num_pokemons':num_pokemons,'max_memory_usage':max_memory_usage,'STATIC_URL':settings.STATIC_URL})        

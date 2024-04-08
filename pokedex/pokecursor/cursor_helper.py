@@ -36,3 +36,10 @@ def has_next_page(page, limit=10):
 
 def has_previous_page(page):
     return page > 1
+
+def get_pokemon_by_name_with_cursor(name):
+    start_time = time.time()
+    collection = connect_to_mongo()
+    cursor = collection.find({"name": {"$regex": name, "$options": "i"}})
+    time_query = time.time() - start_time
+    return cursor, round(time_query, 4)

@@ -13,4 +13,6 @@ urlpatterns = [
     path('delete_all/', views.delete_all_pokemons),
     path('pageAllCursor/', views.list_paginated_pokemons_cursor),
     path('pageAll/', views.list_paginated_pokemons_without_cursor),
+    path('search/', views.filter_pokemons_without_cusor),
+    path('searchC/', views.filter_pokemons_cursor),
 ]
