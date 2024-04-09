@@ -108,10 +108,14 @@ def filter_pokemons_without_cusor(request):
     if request.method == 'POST':
         form = FilterForm(request.POST)
         if form.is_valid():
-            filter = form.cleaned_data['name_filter']
-            memory_usage_result = memory_usage((get_pokemon_by_name_without_cursor, (filter,)))
+            name = form.cleaned_data['name_filter']
+            type1 = form.cleaned_data['type1_filter']
+            type2 = form.cleaned_data['type2_filter']
+            generation = form.cleaned_data['gen_filter']
+            legendary = form.cleaned_data['legendary_filter']
+            memory_usage_result = memory_usage((filter_pokemon_without_cursor, (name,type1,type2,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
-            pokemons, time_query = get_pokemon_by_name_without_cursor(filter)
+            pokemons, time_query = filter_pokemon_without_cursor(name, type1, type2, generation, legendary)
             num_pokemons = len(pokemons)
 
     return render(request, 'filter_pokemons.html', {'titulo':'Filtrado de pokemons sin cursores','pokemons':pokemons,

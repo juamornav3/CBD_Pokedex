@@ -43,3 +43,13 @@ def get_pokemon_by_name_with_cursor(name):
     cursor = collection.find({"name": {"$regex": name, "$options": "i"}})
     time_query = time.time() - start_time
     return cursor, round(time_query, 4)
+
+def get_type_with_cursor():
+    collection = connect_to_mongo()
+    cursor = collection.find({}, {'type_1': 1})
+    types = {doc['type_1'] for doc in cursor}
+    type_choices = [(type, type.capitalize()) for type in types]   
+    type_choices.insert(0, ('', ''))
+    return type_choices
+
+
