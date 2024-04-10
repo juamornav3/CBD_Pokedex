@@ -67,10 +67,14 @@ def filter_pokemons_cursor(request):
     if request.method == 'POST':
         form = FilterForm(request.POST)
         if form.is_valid():
-            filter = form.cleaned_data['name_filter']
-            memory_usage_result = memory_usage((get_pokemon_by_name_with_cursor, (filter,)))
+            name = form.cleaned_data['name_filter']
+            type1 = form.cleaned_data['type1_filter']
+            type2 = form.cleaned_data['type2_filter']
+            generation = form.cleaned_data['gen_filter']
+            legendary = form.cleaned_data['legendary_filter']
+            memory_usage_result = memory_usage((filter_pokemon_with_cursor, (name,type1,type2,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
-            pokemons, time_query = get_pokemon_by_name_with_cursor(filter)
+            pokemons, time_query = filter_pokemon_with_cursor(name,type1,type2,generation,legendary)
     return render(request, 'filter_pokemons_cursor.html', {'titulo':'Filtrado de pokemons con cursores','pokemons':pokemons,
                                                   'time_query':time_query,'max_memory_usage':max_memory_usage, 'form':form,'STATIC_URL':settings.STATIC_URL})
     

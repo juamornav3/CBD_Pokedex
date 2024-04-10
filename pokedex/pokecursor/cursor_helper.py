@@ -52,4 +52,23 @@ def get_type_with_cursor():
     type_choices.insert(0, ('', ''))
     return type_choices
 
+def filter_pokemon_with_cursor(pokemon_name, type1, type2, generation, legendary):
+    start_time = time.time()
+    collection = connect_to_mongo()
+    query = {}
+    if pokemon_name:
+        query['name'] = {"$regex": pokemon_name, "$options": "i"}
+    if type1:
+        query['type_1'] = type1
+    if type2:
+        query['type_2'] = type2
+    if generation:
+        query['generation'] = generation
+    if legendary:
+        query['legendary'] = True
+    else:
+        query['legendary'] = False
+    cursor = collection.find(query)
+    time_query = time.time() - start_time
+    return cursor, round(time_query, 4)
 
