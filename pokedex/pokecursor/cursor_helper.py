@@ -52,7 +52,7 @@ def get_type_with_cursor():
     type_choices.insert(0, ('', ''))
     return type_choices
 
-def filter_pokemon_with_cursor(pokemon_name, type1, type2, generation, legendary):
+def filter_pokemon_with_cursor(pokemon_name, type1, type2, hp, attack, defense, sp_attack ,sp_def ,speed , generation, legendary):
     start_time = time.time()
     collection = connect_to_mongo()
     query = {}
@@ -62,6 +62,18 @@ def filter_pokemon_with_cursor(pokemon_name, type1, type2, generation, legendary
         query['type_1'] = type1
     if type2:
         query['type_2'] = type2
+    if hp:
+        query['hp'] = {"$lte": hp}
+    if attack:
+        query['attack'] = {"$lte": attack}
+    if defense:
+        query['defense'] = {"$lte": defense}
+    if sp_attack:
+        query['sp_attack'] = {"$lte": sp_attack}
+    if sp_def:
+        query['sp_def'] = {"$lte": sp_def}
+    if speed:
+        query['speed'] = {"$lte": speed}
     if generation:
         query['generation'] = generation
     if legendary:

@@ -16,7 +16,7 @@ def list_all_pokemon_without_cursor():
 
 from django.db.models import Q
 
-def filter_pokemon_without_cursor(pokemon_name, type1, type2, generation, legendary):
+def filter_pokemon_without_cursor(pokemon_name, type1, type2,hp, attack, defense, sp_attack ,sp_def ,speed , generation, legendary):
     start_time = time.time()
     results = Pokemon.objects.all()
     if pokemon_name:
@@ -25,11 +25,22 @@ def filter_pokemon_without_cursor(pokemon_name, type1, type2, generation, legend
         results = results.filter(type_1=type1)
     if type2:
         results = results.filter(type_2=type2)
+    if hp:
+        results = results.filter(hp__lte=hp)
+    if attack:
+        results = results.filter(attack__lte=attack)
+    if defense:
+        results = results.filter(defense__lte=defense)
+    if sp_attack:
+        results = results.filter(sp_atk__lte=sp_attack)
+    if sp_def:
+        results = results.filter(sp_def__lte=sp_def)
+    if speed:
+        results = results.filter(speed__lte=speed)
     if generation:
         results = results.filter(generation=generation)
     list_results = list(results.values())
     if legendary:
-            print("Entro")
             list_results = [res for res in results if res.legendary is True]
     else:
             list_results = [res for res in results if res.legendary is False]
