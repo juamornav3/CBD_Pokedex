@@ -70,11 +70,17 @@ def filter_pokemons_cursor(request):
             name = form.cleaned_data['name_filter']
             type1 = form.cleaned_data['type1_filter']
             type2 = form.cleaned_data['type2_filter']
+            hp = form.cleaned_data['hp_filter']
+            attack = form.cleaned_data['attack_filter']
+            defense = form.cleaned_data['defense_filter']
+            sp_atk = form.cleaned_data['sp_atk_filter']
+            sp_def = form.cleaned_data['sp_def_filter']
+            speed = form.cleaned_data['speed_filter']
             generation = form.cleaned_data['gen_filter']
             legendary = form.cleaned_data['legendary_filter']
-            memory_usage_result = memory_usage((filter_pokemon_with_cursor, (name,type1,type2,generation,legendary)))
+            memory_usage_result = memory_usage((filter_pokemon_with_cursor, (name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
-            pokemons, time_query = filter_pokemon_with_cursor(name,type1,type2,generation,legendary)
+            pokemons, time_query = filter_pokemon_with_cursor(name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)
     return render(request, 'filter_pokemons_cursor.html', {'titulo':'Filtrado de pokemons con cursores','pokemons':pokemons,
                                                   'time_query':time_query,'max_memory_usage':max_memory_usage, 'form':form,'STATIC_URL':settings.STATIC_URL})
     
@@ -115,11 +121,17 @@ def filter_pokemons_without_cusor(request):
             name = form.cleaned_data['name_filter']
             type1 = form.cleaned_data['type1_filter']
             type2 = form.cleaned_data['type2_filter']
+            hp = form.cleaned_data['hp_filter']
+            attack = form.cleaned_data['attack_filter']
+            defense = form.cleaned_data['defense_filter']
+            sp_atk = form.cleaned_data['sp_atk_filter']
+            sp_def = form.cleaned_data['sp_def_filter']
+            speed = form.cleaned_data['speed_filter']
             generation = form.cleaned_data['gen_filter']
             legendary = form.cleaned_data['legendary_filter']
-            memory_usage_result = memory_usage((filter_pokemon_without_cursor, (name,type1,type2,generation,legendary)))
+            memory_usage_result = memory_usage((filter_pokemon_without_cursor, (name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
-            pokemons, time_query = filter_pokemon_without_cursor(name, type1, type2, generation, legendary)
+            pokemons, time_query = filter_pokemon_without_cursor(name, type1, type2, hp, attack, defense,sp_atk,sp_def,speed, generation, legendary)
             num_pokemons = len(pokemons)
 
     return render(request, 'filter_pokemons.html', {'titulo':'Filtrado de pokemons sin cursores','pokemons':pokemons,
