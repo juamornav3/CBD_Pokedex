@@ -8,11 +8,8 @@
         <script src="{{STATIC_URL}}js/jquery.min.js"></script>
         <script src="{{STATIC_URL}}js/uikit.min.js"></script>
   </head>
-  <body>
-  
-
-	<h1>Pokédex</h1>
-    <nav class="uk-navbar-container" uk-navbar>
+<body>
+    <nav style="position: fixed; top:0; left: 0; width: 100%;" class="uk-navbar-container" uk-navbar>
     <div class="uk-navbar-left">
 
         <ul class="uk-navbar-nav">
@@ -56,9 +53,9 @@
 </nav>
 		<hr>
  		
- 		<h1 >{% block titulo %} {% endblock %}</h1>
+ 		<h1 style="padding-left: 40px; padding-top: 30px;" ><strong>{% block titulo %} {% endblock %}</strong></h1>
 
-		{% block contenido %} {% endblock %}
+		<div>{% block contenido %} {% endblock %}</div>
   </body>
 </html>
 
