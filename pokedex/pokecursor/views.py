@@ -41,7 +41,7 @@ def list_pokemons_cursor(request):
     memory_usage_result = memory_usage((list_all_pokemon_with_cursor,))
     max_memory_usage = max(memory_usage_result)
     pokemons,time_query = list_all_pokemon_with_cursor()
-    return render(request, 'list_pokemons_cursor.html', {'titulo':'Listado de pokemons con cursores','pokemons':pokemons,
+    return render(request, 'list_pokemons_cursor.html', {'titulo':'LISTADO DE POKEMONS CON CURSORES','pokemons':pokemons,
                                                          'time_query':time_query,'max_memory_usage':max_memory_usage,
                                                          'STATIC_URL':settings.STATIC_URL})
 
@@ -54,7 +54,7 @@ def list_paginated_pokemons_cursor(request):
     has_next = has_next_page(page)
     pages = num_pages()
     pokemons,time_query = paginate_pokemon_with_cursor(page)
-    return render(request, 'page_pokemons_cursor.html', {'titulo':'Listado de pokemons con cursores paginado','pokemons':pokemons,
+    return render(request, 'page_pokemons_cursor.html', {'titulo':'LISTADO DE POKEMONS CON CURSORES PAGINADO','pokemons':pokemons,
                                                          'time_query':time_query,'max_memory_usage':max_memory_usage,'page':page,
                                                          'has_previous':has_previous,'has_next':has_next,'pages':pages,
                                                          'STATIC_URL':settings.STATIC_URL})
@@ -81,7 +81,7 @@ def filter_pokemons_cursor(request):
             memory_usage_result = memory_usage((filter_pokemon_with_cursor, (name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
             pokemons, time_query = filter_pokemon_with_cursor(name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)
-    return render(request, 'filter_pokemons_cursor.html', {'titulo':'Filtrado de pokemons con cursores','pokemons':pokemons,
+    return render(request, 'filter_pokemons_cursor.html', {'titulo':'FILTRADO DE POKEMONS CON CURSORES','pokemons':pokemons,
                                                   'time_query':time_query,'max_memory_usage':max_memory_usage, 'form':form,'STATIC_URL':settings.STATIC_URL})
     
 
@@ -92,7 +92,7 @@ def list_pokemons_without_cursor(request):
     max_memory_usage = max(memory_usage_result)
     pokemons, time_query= list_all_pokemon_without_cursor()
     num_pokemons = len(pokemons)
-    return render(request, 'list_pokemons.html', {'titulo':'Listado de pokemons sin cursores','pokemons':pokemons,
+    return render(request, 'list_pokemons.html', {'titulo':'LISTADO DE POKEMONS SIN CURSORES','pokemons':pokemons,
                                                   'time_query':time_query,'max_memory_usage':max_memory_usage,
                                                     'num_pokemons':num_pokemons,'STATIC_URL':settings.STATIC_URL})
 
@@ -105,7 +105,7 @@ def list_paginated_pokemons_without_cursor(request):
     pages = range(1, pokemons.paginator.num_pages+1)
     memory_usage_result = memory_usage((list_all_pokemon_without_cursor,))
     max_memory_usage = max(memory_usage_result)
-    return render(request, 'page_pokemons.html', {'titulo':'Listado de pokemons sin cursores paginado','pokemons':pokemons,
+    return render(request, 'page_pokemons.html', {'titulo':'LISTADO DE POKEMONS SIN CURSORES PAGINADO','pokemons':pokemons,
                                                   'time_query':time_query,'current_page':current_page,'pages':pages,
                                                     'max_memory_usage':max_memory_usage,'STATIC_URL':settings.STATIC_URL})
                                         
@@ -134,5 +134,5 @@ def filter_pokemons_without_cusor(request):
             pokemons, time_query = filter_pokemon_without_cursor(name, type1, type2, hp, attack, defense,sp_atk,sp_def,speed, generation, legendary)
             num_pokemons = len(pokemons)
 
-    return render(request, 'filter_pokemons.html', {'titulo':'Filtrado de pokemons sin cursores','pokemons':pokemons,
+    return render(request, 'filter_pokemons.html', {'titulo':'FILTRADO DE POKEMONS SIN CURSORES','pokemons':pokemons,
                                                   'time_query':time_query,'form':form,'num_pokemons':num_pokemons,'max_memory_usage':max_memory_usage,'STATIC_URL':settings.STATIC_URL})        
