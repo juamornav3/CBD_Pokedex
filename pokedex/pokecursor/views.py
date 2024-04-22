@@ -76,7 +76,7 @@ def filter_pokemons_cursor(request):
             sp_atk = form.cleaned_data['sp_atk_filter']
             sp_def = form.cleaned_data['sp_def_filter']
             speed = form.cleaned_data['speed_filter']
-            generation = form.cleaned_data['gen_filter']
+            generation =int(form.cleaned_data['gen_filter'])
             legendary = form.cleaned_data['legendary_filter']
             memory_usage_result = memory_usage((filter_pokemon_with_cursor, (name,type1,type2,hp,attack,defense,sp_atk,sp_def,speed,generation,legendary)))
             max_memory_usage = max(memory_usage_result)
