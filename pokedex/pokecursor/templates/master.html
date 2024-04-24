@@ -1,0 +1,61 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang='es'>
+  <head>
+	<meta charset='utf-8'>
+		<link rel="stylesheet" href="{{STATIC_URL}}css/uikit.min.css" />
+        <script src="{{STATIC_URL}}js/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}js/uikit.min.js"></script>
+  </head>
+<body>
+    <nav style="position: fixed; top:0; left: 0; width: 100%;" class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="/">Inicio</a></li>
+        </ul>
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Base de Datos</a>
+            <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="/populate">Poblar Base de Datos</a></li>
+                        <li><a href="/populate_n">Poblar Base de Datos N veces</a></li>
+                        <li><a href="/delete_all">Eliminar Base de Datos</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Búsqueda con cursores</a>
+            <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="/listAllCursor">Listelos a todos</a></li>
+                        <li><a href="/pageAllCursor">Pokémons paginados</a></li>
+                        <li><a href="/searchC">Listado con filtros</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Búsqueda sin cursores</a>
+            <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="/listAll">Listelos a todos</a></li>
+                        <li><a href="/pageAll">Pokémons paginados</a></li>
+                        <li><a href="/search">Listado con filtros</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+		<hr>
+ 		
+ 		<h1 style="padding-left: 40px; padding-top: 30px;" ><strong>{% block titulo %} {% endblock %}</strong></h1>
+
+		<div>{% block contenido %} {% endblock %}</div>
+  </body>
+</html>
+

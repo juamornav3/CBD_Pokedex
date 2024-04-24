@@ -1,0 +1,65 @@
+{% extends 'master.html' %}
+
+{% block titulo %} {{titulo}} {% endblock %}
+
+
+
+{% block contenido %}
+        <div style="padding-left: 70px;"> 
+            <h3>Número de páginas listadas: {{pokemons.paginator.num_pages}}</h3>
+            <h3>Tiempo de ejecución de la consulta: {{time_query}} segundos</h3>
+            <h3>Uso de memoria: {{max_memory_usage}} MiB</h3>
+        </div>
+        <div style="display: flex; justify-content: center;" >
+            <table border="2" style="text-align: center;">
+                <thead style="background-color: black; color: aliceblue">
+                    <tr>
+                        <th style="padding: 10px;">Nombre</th>
+                        <th style="padding: 10px">Tipo 1</th>
+                        <th style="padding: 10px;">Tipo 2</th>
+                        <th style="padding: 10px;">HP</th>
+                        <th style="padding: 10px;">Ataque</th>
+                        <th style="padding: 10px;">Defensa</th>
+                        <th style="padding: 10px;">Ataque Especial</th>
+                        <th style="padding: 10px;">Defensa Especial</th>
+                        <th style="padding: 10px;">Velocidad</th>
+                        <th style="padding: 10px;">Generación</th>
+                        <th style="padding: 10px;">Legendario</th>
+                    </tr>
+                </thead>
+                <tbody style="background-color: aliceblue;">
+                    {% for pokemon in pokemons %}
+                    <tr>
+                        <td>{{pokemon.name}}</td>
+                        <td>{{pokemon.type_1}}</td>
+                        <td>{{pokemon.type_2}}</td>
+                        <td>{{pokemon.hp}}</td>
+                        <td>{{pokemon.attack}}</td>
+                        <td>{{pokemon.defense}}</td>
+                        <td>{{pokemon.sp_atk}}</td>
+                        <td>{{pokemon.sp_def}}</td>
+                        <td>{{pokemon.speed}}</td>
+                        <td>{{pokemon.generation}}</td>
+                        <td>{{pokemon.legendary}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        </div>   
+        <ul>
+            {% if pokemons.has_previous %}
+                <div style="display: flex; justify-content: center;padding: 10px;">
+                    <a href="/pageAll/?page=1">Primera /</a>
+                    <a href="/pageAll/?page={{pokemons.previous_page_number}}">/ Anterior</a>
+                </div>
+            {% endif %}
+            {% if pokemons.has_next %}
+                <div style="display: flex; justify-content: center;padding: 10px;">
+                    <a href="/pageAll/?page={{pokemons.next_page_number}}">Siguiente /</a>
+                    <a href="/pageAll/?page={{pokemons.paginator.num_pages}}">/ Última</a>
+                </div>
+            {% endif %}
+        </ul>
+
+{% endblock %}
